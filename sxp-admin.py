@@ -5,18 +5,16 @@ import requests
 
 from urllib3.exceptions import InsecureRequestWarning
 
+from config import TOKEN, SERVER
+
 urllib3.disable_warnings(InsecureRequestWarning)  # disable insecure https warnings
-
-server = "https://hawk-asa01:4443"
-
 
 
 req = urllib3.PoolManager()
 
-TOKEN = '57FEDA@4096@3FB4@67FD4111442B3A2B881B8BBE197B89BD1AE173A0'
 
 
-def getACLS(server,interface, object=None):
+def getACLS(server,interface, object=""):
 
 	req = urllib3.PoolManager()
 
@@ -26,12 +24,12 @@ def getACLS(server,interface, object=None):
 
 	response = requests.get(url, headers=header, verify=False)
 	response_json = response.json()
-#	response_list = response_json['items']
+
+	print("Log1")
+	print(response_json)
 
 
-	print(response_json['active'])
-
-def enableACL(object,interface):
+def enableACL(server,object,interface):
 	req = urllib3.PoolManager()
 	header = {'content-type': 'application/json','User-agent': 'REST API Agent','X-Auth-Token': TOKEN}
 
@@ -41,7 +39,7 @@ def enableACL(object,interface):
 
 	requests.patch(url, headers=header, data=json.dumps(payload), verify=False)
 
-def disableACL(object,interface):
+def disableACL(server,object,interface):
 	req = urllib3.PoolManager()
 	header = {'content-type': 'application/json','User-agent': 'REST API Agent','X-Auth-Token': TOKEN}
 
@@ -53,7 +51,14 @@ def disableACL(object,interface):
 
 
 
-getACLS(server,"LAN","2605530362")
-#enableACL("2605530362","LAN")
-disableACL("2605530362","LAN")
-getACLS(server,"LAN","2605530362")
+def main():
+	print("log")
+	#getACLS(SERVER,"LAN","2605530362")
+	#enableACL(SERVER,"2605530362","LAN")
+	#disableACL(SERVER,"2605530362","LAN")
+	#getACLS(SERVER,"LAN","2605530362")
+	getACLS(SERVER,"LAN","3123348233")
+
+
+if __name__ == '__main__':
+	main()
