@@ -2,6 +2,7 @@ import json
 import sys
 import urllib3
 import requests
+import datetime
 
 from urllib3.exceptions import InsecureRequestWarning
 
@@ -56,6 +57,15 @@ def disable_acl(server, object_id, interface):
 
 	requests.patch(url, headers=header, data=json.dumps(payload), verify=False)
 
+
+# adds time in minutes to now and return ASA timerange command
+def timeadder(time):
+	now = datetime.datetime.now()
+	then = now + datetime.timedelta(minutes=time)
+
+	print(then.strftime("absolute end %H:%M %d %B %Y"))
+
+
 def main():
 	print("Starting")
 	#getACLS(SERVER,"LAN","2605530362")
@@ -63,9 +73,10 @@ def main():
 	#disableACL(SERVER,"2605530362","LAN")
 	#getACLS(SERVER,"LAN","2605530362")
 	#get_acls(SERVER, "LAN")
-	list = find_acl_sgt("Bo", SERVER, "LAN")
-	for i in list:
-		disable_acl(SERVER, i, "LAN")
+	#list = find_acl_sgt("Bo", SERVER, "LAN")
+	#for i in list:
+	#	disable_acl(SERVER, i, "LAN")
+	timeadder(10)
 
 
 if __name__ == '__main__':
