@@ -62,9 +62,14 @@ def disable_acl(server, object_id, interface):
 def timeadder(time):
 	now = datetime.datetime.now()
 	then = now + datetime.timedelta(minutes=time)
+	when = then.strftime("%H:%M %B %d %Y")
+	return when
 
-	print(then.strftime("absolute end %H:%M %d %B %Y"))
-
+def update_timerange(server, timeobject, time):
+	header = {'content-type': 'application/json', 'User-agent': 'REST API Agent', 'X-Auth-Token': TOKEN}
+	payload = {"value": {"start": "now", "end": timeadder(time)}}
+	url = server + "/api/objects/timeranges/" + timeobject
+	requests.patch(url, headers=header, data=json.dumps(payload), verify=False)
 
 def main():
 	print("Starting")
@@ -73,10 +78,11 @@ def main():
 	#disableACL(SERVER,"2605530362","LAN")
 	#getACLS(SERVER,"LAN","2605530362")
 	#get_acls(SERVER, "LAN")
-	#list = find_acl_sgt("Bo", SERVER, "LAN")
+	#list = find_acl_sgt("Linda", SERVER, "LAN")
 	#for i in list:
-	#	disable_acl(SERVER, i, "LAN")
-	timeadder(10)
+	#	enable_acl(SERVER, i, "LAN")
+	update_timerange(SERVER, "Bo", 2)
+
 
 
 if __name__ == '__main__':

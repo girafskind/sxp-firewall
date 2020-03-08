@@ -2,5 +2,5 @@
 
 # Get token from https://{firewall ip}:{port}/doc/ <- remember the last '/'
 
-TOKEN = "22BD89@4096@7EBC@8B8BE8AC70755540B1FB2CD0BFE8C103F549F76D"
+TOKEN = "3FB25F@4096@72A9@5969148C2CBFAD6A67B1CBBCE6A1020952A2B366"
 SERVER = "https://hawk-asa01:4443"
